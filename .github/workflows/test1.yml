@@ -23,7 +23,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     outputs:
-         testtest: ${{ steps.testtest.outputs.result }}
+      testtest: ${{ steps.testtest.outputs.result }}
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -45,6 +45,7 @@ jobs:
   exec:
     runs-on: ubuntu-latest
     environment: test
+    needs: build
     steps:
       - uses: actions/github-script@v6
         id: get-approver
@@ -62,7 +63,7 @@ jobs:
           echo github.actor.. ${{ github.actor }}
           echo inputs.reason.. ${{ inputs.reason }}
           echo inputs.environment.. ${{ inputs.environment }}
-          echo ${{steps.build.outputs.testtest}}
+          echo ${{needs.build.outputs.testtest}}
           echo "${{ github.actor }} requested JIT for <https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|${{ inputs.reason }}>\nApproved By ${{steps.get-approver.outputs.result}}"
 
 #     uses: ./.github/workflows/test2.yml
