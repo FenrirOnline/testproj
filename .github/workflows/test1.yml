@@ -27,13 +27,18 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-
+      - uses: actions/github-script@v6
+        id: testtest
+        with:
+          script: |
+            return "HIHIH";
       # Runs a set of commands using the runners shell
       - name: Print Test
         run: |
           echo github.actor.. ${{ github.actor }}
           echo inputs.reason.. ${{ inputs.reason }}
           echo inputs.environment.. ${{ inputs.environment }}
+          echo ${{steps.testtest.outputs.result}}
           echo "${{ github.actor }} requested JIT for <https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|${{ inputs.reason }}>"
           
   exec:
@@ -56,6 +61,7 @@ jobs:
           echo github.actor.. ${{ github.actor }}
           echo inputs.reason.. ${{ inputs.reason }}
           echo inputs.environment.. ${{ inputs.environment }}
+          echo ${{steps.testtest.outputs.result}}
           echo "${{ github.actor }} requested JIT for <https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|${{ inputs.reason }}>\nApproved By ${{steps.get-approver.outputs.result}}"
 
 #     uses: ./.github/workflows/test2.yml
