@@ -62,7 +62,7 @@ jobs:
           echo github.actor.. ${{ github.actor }}
           echo inputs.reason.. ${{ inputs.reason }}
           echo inputs.environment.. ${{ inputs.environment }}
-          echo ${{needs.build.outputs.testtest}}
+          echo ${{steps.build.outputs.testtest}}
           echo "${{ github.actor }} requested JIT for <https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|${{ inputs.reason }}>\nApproved By ${{steps.get-approver.outputs.result}}"
 
 #     uses: ./.github/workflows/test2.yml
